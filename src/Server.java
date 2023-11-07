@@ -47,20 +47,17 @@ public class Server implements Runnable {
             System.out.printf("Client's request: %s\n", line);
             String request[] = line.trim().split(" ");
             
-            for (String s : request) {
-                calculate.add(s);
+            if (request.length > 1) {
+                    for (int i = 0; i < (request.length - 1); i++) {
+                    calculate.add(request[i]);
+                }
             }
 
-            if (calculate.size() < 3) {
-                System.out.println("Invalid command");
-                line = "quit";
-            }
+            float num1 = Float.parseFloat((calculate.remove(calculate.size()-1)));
+            float num2 = Float.parseFloat((calculate.remove(calculate.size()-1)));
+            float newNum = 0;
 
-            int num1 = Integer.parseInt((calculate.remove(calculate.size()-2)));
-            int num2 = Integer.parseInt((calculate.remove(calculate.size()-2)));
-            int newNum = 0;
-
-            switch (calculate.removeLast()) {
+            switch (request[(request.length - 1)]) {
                 case "+" : newNum = num1 + num2; 
                             break;
                 case "-" : newNum = num1 - num2; 
@@ -69,9 +66,14 @@ public class Server implements Runnable {
                             break;
                 case "/" : newNum = num1 / num2;
                             break;
+                default : calculate.add(String.format("%.2f", num2));
+                            calculate.add(String.format("%.2f", num1));
+                            calculate.add(String.format("%.2f", request[(request.length - 1)]));
             }
 
-            calculate.addLast(String.format("%d", newNum));
+            if (newNum != 0) {
+                calculate.add(String.format("%.2f", newNum));
+            }
             bw.write(calculate.toString() + "\n");
             bw.flush();
         }
