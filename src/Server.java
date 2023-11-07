@@ -68,7 +68,9 @@ public class Server implements Runnable {
                             break;
                 default : calculate.add(String.format("%.2f", num2));
                             calculate.add(String.format("%.2f", num1));
-                            calculate.add(String.format("%.2f", request[(request.length - 1)]));
+                            float lastNum = Float.parseFloat(request[(request.length - 1)]);
+                            calculate.add(String.format("%.2f", lastNum));
+                            break;
             }
 
             if (newNum != 0) {
