@@ -1,6 +1,6 @@
 # calculator
 Reverse Polish notation (RPN) calculator server that is multi-threaded.
-MTServer starts the server to connect to clients from Client.
+MTServer starts the server to connect to clients from Client, maximum of 2 connections.
 Client is console-based and numbers and operators can be passed to Server for calculation in RPN.
 Example: 
 Client > 5 20 / ----> returns [4.00] from Server.
